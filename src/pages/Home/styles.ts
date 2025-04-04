@@ -40,3 +40,24 @@ export const IssuesAside = styled.div`
   gap: 2rem;
   flex-wrap: wrap;
 `;
+
+export const PublicacoesContainer = styled.div`
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 12px;
+
+  @media (max-width: 1024px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @media (max-width: 640px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+`
+
+export const Publicacao = styled.div`
+  background: #f5f5f5;
+  padding: 12px;
+  border-radius: 8px;
+  text-align: center;
+`

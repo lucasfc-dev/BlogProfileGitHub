@@ -38,3 +38,11 @@ export const IssuesContainer = styled.div`
     color: ${(props) => props.theme["gray-300"]};
   }
 `;
+
+export const TruncatedText = styled.p`
+  display: -webkit-box;
+  -webkit-line-clamp: 5;     /* Número de linhas que você quer mostrar */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+`

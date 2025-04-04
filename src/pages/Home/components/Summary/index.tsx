@@ -1,7 +1,8 @@
 import { SummaryAnchors, SummaryContainer, SummaryHeader } from "./styles";
 import { ArrowUpRight, Buildings, GithubLogo, Users } from "phosphor-react";
-import axios from "axios";
 import { useEffect, useState } from "react";
+import LoadingSpinner from "../../../../components/Loading";
+import { api } from "../../../../api/api";
 
 export function Summary() {
 
@@ -17,22 +18,30 @@ export function Summary() {
   
 
   const [response, setResponse] = useState<GitHubUser | null>(null)
+  const [isLoading, setIsLoading] = useState<boolean>(false)
 
-  const api = axios.create({
-    baseURL: 'https://api.github.com/',
-    timeout: 5000
-  });
+  async function getUserData(){
+    try{
+      const response = await api.get<GitHubUser>('/users/lucasfc-dev')
+      setResponse(response.data)
+    }
+    catch(error){
+      console.error(error)
+    }
+  }
 
   useEffect(() => {
-    api.get<GitHubUser>('/users/lucasfc-dev')
-      .then((response) => setResponse(response.data))
+    setIsLoading(true)
+    getUserData()
+    setIsLoading(false)
   }, [])
 
   return (
+    isLoading ? <LoadingSpinner /> :
     <SummaryContainer>
       <img src={response?.avatar_url} />
       <section>
-        <SummaryHeader>
+        <SummaryHeader> 
           <h1>{response?.name}</h1>
           <a href={response?.html_url} target="_blank">
             GITHUB
